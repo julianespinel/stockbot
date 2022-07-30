@@ -1,0 +1,2 @@
+# stockbot
+My personal stockbot
