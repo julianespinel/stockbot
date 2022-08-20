@@ -69,7 +69,7 @@ class PriceStats:
                  max_negative_change: float, max_positive_change: float):
         self.min_price = min_price
         self.max_price = max_price
-        self.close_price_difference = close_price_difference
+        self.min_price_max_price_difference = close_price_difference
         self.max_negative_change = max_negative_change
         self.max_positive_change = max_positive_change
 
@@ -77,14 +77,14 @@ class PriceStats:
         return PriceStats(
             self.min_price.round(),
             self.max_price.round(),
-            round(self.close_price_difference, DECIMAL_PLACES),
+            round(self.min_price_max_price_difference, DECIMAL_PLACES),
             round(self.max_negative_change, DECIMAL_PLACES),
             round(self.max_positive_change, DECIMAL_PLACES),
         )
 
     def __str__(self):
         attributes = [self.min_price, self.max_price,
-                      self.close_price_difference,
+                      self.min_price_max_price_difference,
                       self.max_negative_change, self.max_positive_change]
         strings = [str(attribute) for attribute in attributes]
         return ','.join(strings)
@@ -95,7 +95,7 @@ class PriceStats:
 
         return (self.min_price == other.min_price
                 and self.max_price == other.max_price
-                and self.close_price_difference == other.close_price_difference
+                and self.min_price_max_price_difference == other.min_price_max_price_difference
                 and self.max_negative_change == other.max_negative_change
                 and self.max_positive_change == other.max_positive_change)
 
