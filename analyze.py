@@ -1,7 +1,9 @@
+import datetime
 import math
 from datetime import date
 from typing import NamedTuple
 
+import pandas as pd
 from pandas.core.frame import DataFrame
 
 from common_types import Period
@@ -26,7 +28,8 @@ class ReturnStats(NamedTuple):
 
 class ClosePrice:
 
-    def __init__(self, str_date: str, close_value: float):
+    def __init__(self, a_date: str, close_value: float):
+        str_date = self._get_date_as_string(a_date)
         self.date = date.fromisoformat(str_date)
         self.value = close_value
 
@@ -35,6 +38,20 @@ class ClosePrice:
             str(self.date),
             round(self.value, DECIMAL_PLACES),
         )
+
+    @staticmethod
+    def _get_date_as_string(value) -> str:
+        date_type = type(value)
+        if date_type is str:
+            return value
+        elif date_type is pd.Timestamp:
+            return value.date().isoformat()
+        elif date_type is datetime.datetime:
+            return value.date().isoformat()
+        elif date_type is datetime.date:
+            return value.isoformat()
+        else:
+            raise ValueError(f'unsupported date type {date_type}')
 
     def __str__(self):
         return f'{self.date}, {self.value}'
