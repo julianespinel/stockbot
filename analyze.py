@@ -109,6 +109,11 @@ def get_return_stats(prices: DataFrame) -> ReturnStats:
     )
 
 
+def get_current_price(prices: DataFrame) -> ClosePrice:
+    today_row = prices.iloc[0]
+    return ClosePrice(today_row.Date, today_row.Close)
+
+
 def get_price_stats(prices: DataFrame) -> dict[Period, PriceStats]:
     return {
         Period.MONTH: _get_price_stats_in_period(prices, Period.MONTH),
@@ -131,9 +136,7 @@ def get_volatility(prices: DataFrame) -> dict[Period, float]:
 # private methods
 # -----------------------------------------------------------------------------
 def _get_return_in_period(prices: DataFrame, period: Period):
-    today_row = prices.iloc[0]
-    today_price = ClosePrice(today_row.Date, today_row.Close)
-
+    today_price = get_current_price(prices)
     initial_row = prices.iloc[_get_trading_days(period) - 1]
     initial_price = ClosePrice(initial_row.Date, initial_row.Close)
     return _get_price_difference(today_price, initial_price)
