@@ -4,7 +4,6 @@ import pandas as pd
 
 import analyze
 from analyze import PriceStats, ClosePrice
-from common_types import Period
 
 
 class AnalyzeTests(unittest.TestCase):

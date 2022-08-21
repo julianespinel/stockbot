@@ -4,7 +4,6 @@ from unittest.mock import MagicMock
 import pandas as pd
 import yfinance as yf
 
-from common_types import Period
 from download import Download
 
 
