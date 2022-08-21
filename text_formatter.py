@@ -62,6 +62,6 @@ def _human_readable_price_stats(period: Period, stats: PriceStats):
         f'min price: {as_decimal(stats.min_price.value)} ({stats.min_price.date})\n'
         f'max price: {as_decimal(stats.max_price.value)} ({stats.max_price.date})\n'
         f'min-max price diff: {as_percentage(stats.min_price_max_price_difference)}\n'
-        f'max negative change: {as_percentage(stats.max_negative_change)}\n'
-        f'max positive change: {as_percentage(stats.max_positive_change)}\n'
+        f'max negative 1-day change: {as_percentage(stats.max_negative_change)}\n'
+        f'max positive 1-day change: {as_percentage(stats.max_positive_change)}\n'
     )
