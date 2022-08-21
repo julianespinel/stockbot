@@ -1,0 +1,11 @@
+The return of AMZN is:
+
+Current price:
+134.95 (2022-07-29)
+
+Stats:
+
+1mo: 23.90%
+3mo: 8.58%
+6mo: -6.27%
+12mo: -18.89%

@@ -1,0 +1,43 @@
+The stats of AMZN are:
+
+Current price:
+134.95 (2022-07-29)
+
+Stats:
+
+1mo
+min price: 106.21 (2022-06-30)
+max price: 134.95 (2022-07-29)
+min-max price diff: 27.06%
+max negative 1-day change: -5.23%
+max positive 1-day change: 10.36%
+return: 23.90%
+volatility: 15.36%
+---
+3mo
+min price: 102.31 (2022-06-14)
+max price: 134.95 (2022-07-29)
+min-max price diff: 31.90%
+max negative 1-day change: -14.05%
+max positive 1-day change: 10.36%
+return: 8.58%
+volatility: 31.48%
+---
+6mo
+min price: 102.31 (2022-06-14)
+max price: 169.32 (2022-03-29)
+min-max price diff: -39.57%
+max negative 1-day change: -14.05%
+max positive 1-day change: 13.54%
+return: -6.27%
+volatility: 39.95%
+---
+12mo
+min price: 102.31 (2022-06-14)
+max price: 184.80 (2021-11-18)
+min-max price diff: -44.64%
+max negative 1-day change: -14.05%
+max positive 1-day change: 13.54%
+return: -18.89%
+volatility: 43.50%
+---

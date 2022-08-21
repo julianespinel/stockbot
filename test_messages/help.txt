@@ -1,0 +1,8 @@
+I support the following commands:
+
+/start - show the description of what I can do
+/help - show the list of commands I support
+/price {symbol} - get price stats
+/return {symbol} - get return stats
+/vol {symbol} - get volatility stats
+/all {symbol} - get price, return, and volatility stats
