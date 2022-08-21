@@ -2,9 +2,9 @@ import logging
 
 from pandas import DataFrame
 
-import analyze
-import text_formatter as formatter
-from download import Download
+from analyze import analyze
+import bot.text_formatter as formatter
+from download.download import Download
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO

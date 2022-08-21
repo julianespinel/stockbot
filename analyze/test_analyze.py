@@ -2,8 +2,8 @@ import unittest
 
 import pandas as pd
 
-import analyze
-from analyze import PriceStats, ClosePrice
+from analyze import analyze
+from common.common_types import PriceStats, ClosePrice
 
 
 class AnalyzeTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class AnalyzeTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        expected_df = pd.read_csv('csv_files/AMZN_from_stockbot.csv')
+        expected_df = pd.read_csv('analyze/test_files/AMZN_from_stockbot.csv')
         # act
         return_stats = analyze.get_return_stats(expected_df).round()
         # assert
@@ -30,7 +30,7 @@ class AnalyzeTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        prices = pd.read_csv('csv_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('analyze/test_files/AMZN_from_stockbot.csv')
         # act
         price_stats = analyze.get_price_stats(prices)
         # assert
@@ -54,7 +54,7 @@ class AnalyzeTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        prices = pd.read_csv('csv_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('analyze/test_files/AMZN_from_stockbot.csv')
         # act
         volatility = analyze.get_volatility_stats(prices)
         # assert
