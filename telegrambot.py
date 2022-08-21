@@ -45,6 +45,26 @@ def return_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(message)
 
 
+def volatility_command(update: Update, context: CallbackContext) -> None:
+    """
+    This command expects the following: `/vol symbol`
+    For example: `/vol amzn`
+    """
+    text = update.message.text
+    message = bot.reply_volatility_stats(text)
+    update.message.reply_text(message)
+
+
+def all_command(update: Update, context: CallbackContext) -> None:
+    """
+    This command expects the following: `/all symbol`
+    For example: `/all amzn`
+    """
+    text = update.message.text
+    message = bot.reply_all_stats(text)
+    update.message.reply_text(message)
+
+
 def echo(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
     update.message.reply_text(update.message.text)
@@ -64,6 +84,8 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("price", price_command))
     dispatcher.add_handler(CommandHandler("return", return_command))
+    dispatcher.add_handler(CommandHandler("vol", volatility_command))
+    dispatcher.add_handler(CommandHandler("all", all_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))

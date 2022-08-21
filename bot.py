@@ -33,7 +33,7 @@ class Bot:
             'This bot supports the following commands:\n\n'
             '/price {symbol} - get price stats\n'
             '/return {symbol} - get return stats\n'
-            '/volatility {symbol} - get volatility stats\n'
+            '/vol {symbol} - get volatility stats\n'
             '/all {symbol} - get price, return, and volatility stats\n'
         )
 
@@ -72,6 +72,45 @@ class Bot:
             error_message = str(e)
             logger.error(error_message)
             return error_message
+
+    def reply_volatility_stats(self, text: str) -> str:
+        try:
+            symbol = self._get_symbol(text)
+            prices = self._get_prices(symbol)
+
+            current_price = analyze.get_current_price(prices)
+            volatility_stats = analyze.get_volatility_stats(prices)
+            readable_volatility_stats = formatter.human_readable_annual_stats(volatility_stats)
+            message = (f'The volatility of {symbol.upper()} is:\n\n'
+                       f'Current price:\n'
+                       f'{formatter.as_decimal(current_price.value)} ({current_price.date})\n\n'
+                       f'Stats:\n\n{readable_volatility_stats}')
+            return message
+        except Exception as e:
+            error_message = str(e)
+            logger.error(error_message)
+            return error_message
+
+    def reply_all_stats(self, text: str) -> str:
+        try:
+            symbol = self._get_symbol(text)
+            prices = self._get_prices(symbol)
+
+            current_price = analyze.get_current_price(prices)
+            price_stats = analyze.get_price_stats(prices)
+            return_stats = analyze.get_return_stats(prices)
+            volatility_stats = analyze.get_volatility_stats(prices)
+            readable_all_stats = formatter.human_readable_all_annual_stats(price_stats, return_stats, volatility_stats)
+            message = (f'The stats of {symbol.upper()} are:\n\n'
+                       f'Current price:\n'
+                       f'{formatter.as_decimal(current_price.value)} ({current_price.date})\n\n'
+                       f'Stats:\n\n{readable_all_stats}')
+            return message
+        except Exception as e:
+            error_message = str(e)
+            logger.error(error_message)
+            return error_message
+
 
     # private methods
 
