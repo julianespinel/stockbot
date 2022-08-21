@@ -1,11 +1,10 @@
-from analyze import PriceStats
+from analyze import PriceStats, ReturnStats
 from common_types import Period
 
 
-def human_readable(price_stats: dict[Period, PriceStats]) -> str:
+def human_readable_prices(price_stats: dict[Period, PriceStats]) -> str:
     result = ''
     for period, stats in price_stats.items():
-        stats = stats.round()
         result += f'{period}\n'
         result += f'min price: {as_decimal(stats.min_price.value)} ({stats.min_price.date})\n'
         result += f'max price: {as_decimal(stats.max_price.value)} ({stats.max_price.date})\n'
@@ -15,6 +14,16 @@ def human_readable(price_stats: dict[Period, PriceStats]) -> str:
         result += '---\n'
 
     return result
+
+
+def human_readable_returns(return_stats: ReturnStats) -> str:
+    return (
+        f'{Period.MONTH}: {as_percentage(return_stats.month)}\n'
+        f'{Period.QUARTER}: {as_percentage(return_stats.quarter)}\n'
+        f'{Period.HALF}: {as_percentage(return_stats.half)}\n'
+        f'{Period.YEAR}: {as_percentage(return_stats.year)}\n'
+        '---\n'
+    )
 
 
 def as_percentage(value: float) -> str:
