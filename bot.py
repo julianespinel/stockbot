@@ -111,7 +111,6 @@ class Bot:
             logger.error(error_message)
             return error_message
 
-
     # private methods
 
     @staticmethod
