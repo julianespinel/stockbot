@@ -1,4 +1,3 @@
-import logging
 import os
 
 import yfinance as yf
@@ -7,13 +6,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 
 from bot import Bot
 from download import Download
-
-# Enable logging
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
-logger = logging.getLogger(__name__)
 
 downloader = Download(yf)
 bot = Bot(downloader)
