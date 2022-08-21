@@ -4,7 +4,7 @@ from datetime import date
 from typing import NamedTuple
 
 import pandas as pd
-from pandas.core.frame import DataFrame
+from pandas import DataFrame
 
 from common_types import Period
 
@@ -135,7 +135,7 @@ def get_volatility(prices: DataFrame) -> dict[Period, float]:
 # -----------------------------------------------------------------------------
 # private methods
 # -----------------------------------------------------------------------------
-def _get_return_in_period(prices: DataFrame, period: Period):
+def _get_return_in_period(prices: DataFrame, period: Period) -> float:
     today_price = get_current_price(prices)
     initial_row = prices.iloc[_get_trading_days(period) - 1]
     initial_price = ClosePrice(initial_row.Date, initial_row.Close)
