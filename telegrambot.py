@@ -11,10 +11,14 @@ downloader = Download(yf)
 bot = Bot(downloader)
 
 
+def start_command(update: Update, context: CallbackContext) -> None:
+    """Send a message when the command /start is issued."""
+    update.message.reply_text(bot.reply_start())
+
+
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
-    help_message = bot.reply_help()
-    update.message.reply_text(help_message)
+    update.message.reply_text(bot.reply_help())
 
 
 def price_command(update: Update, context: CallbackContext) -> None:
@@ -57,9 +61,9 @@ def all_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(message)
 
 
-def echo(update: Update, context: CallbackContext) -> None:
-    """Echo the user message."""
-    update.message.reply_text(update.message.text)
+def unknown_command(update: Update, context: CallbackContext) -> None:
+    message = "I don't understand that, but " + bot.reply_help()
+    update.message.reply_text(message)
 
 
 def main() -> None:
@@ -72,15 +76,15 @@ def main() -> None:
     dispatcher = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dispatcher.add_handler(CommandHandler("start", help_command))
+    dispatcher.add_handler(CommandHandler("start", start_command))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("price", price_command))
     dispatcher.add_handler(CommandHandler("return", return_command))
     dispatcher.add_handler(CommandHandler("vol", volatility_command))
     dispatcher.add_handler(CommandHandler("all", all_command))
 
-    # on non command i.e message - echo the message on Telegram
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+    # handle unknown commands or text
+    dispatcher.add_handler(MessageHandler(Filters.command | Filters.text, unknown_command))
 
     # Start the Bot
     updater.start_polling()

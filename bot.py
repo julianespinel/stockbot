@@ -28,9 +28,19 @@ class Bot:
     def __init__(self, downloader: Download):
         self.downloader = downloader
 
+    def reply_start(self):
+        return (
+            "I compute statistics about prices, returns and volatility from "
+            "stocks, ETFs and REITs. I get the data from Yahoo Finance.\n\n"
+            "/help will show the list of supported commands."
+        )
+
+
     def reply_help(self):
         return (
-            'This bot supports the following commands:\n\n'
+            'I support the following commands:\n\n'
+            '/start - show the description of what I can do\n'
+            '/help - show the list of commands I support\n'
             '/price {symbol} - get price stats\n'
             '/return {symbol} - get return stats\n'
             '/vol {symbol} - get volatility stats\n'
