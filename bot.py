@@ -62,7 +62,7 @@ class Bot:
 
             current_price = analyze.get_current_price(prices)
             return_stats = analyze.get_return_stats(prices)
-            readable_return_stats = formatter.human_readable_returns(return_stats)
+            readable_return_stats = formatter.human_readable_annual_stats(return_stats)
             message = (f'The return of {symbol.upper()} is:\n\n'
                        f'Current price:\n'
                        f'{formatter.as_decimal(current_price.value)} ({current_price.date})\n\n'

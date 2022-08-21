@@ -11,14 +11,14 @@ from common_types import Period
 DECIMAL_PLACES = 4
 
 
-class ReturnStats(NamedTuple):
+class AnnualStats(NamedTuple):
     month: float
     quarter: float
     half: float
     year: float
 
     def round(self):
-        return ReturnStats(
+        return AnnualStats(
             round(self.month, DECIMAL_PLACES),
             round(self.quarter, DECIMAL_PLACES),
             round(self.half, DECIMAL_PLACES),
@@ -100,12 +100,19 @@ class PriceStats:
                 and self.max_positive_change == other.max_positive_change)
 
 
-def get_return_stats(prices: DataFrame) -> ReturnStats:
-    return ReturnStats(
-        _get_return_in_period(prices, Period.MONTH),
-        _get_return_in_period(prices, Period.QUARTER),
-        _get_return_in_period(prices, Period.HALF),
-        _get_return_in_period(prices, Period.YEAR),
+class AnnualPriceStats(NamedTuple):
+    month: PriceStats
+    quarter: PriceStats
+    half: PriceStats
+    year: PriceStats
+
+
+def get_return_stats(prices: DataFrame) -> AnnualStats:
+    return AnnualStats(
+        month=_get_return_in_period(prices, Period.MONTH),
+        quarter=_get_return_in_period(prices, Period.QUARTER),
+        half=_get_return_in_period(prices, Period.HALF),
+        year=_get_return_in_period(prices, Period.YEAR),
     )
 
 
@@ -114,22 +121,22 @@ def get_current_price(prices: DataFrame) -> ClosePrice:
     return ClosePrice(today_row.Date, today_row.Close)
 
 
-def get_price_stats(prices: DataFrame) -> dict[Period, PriceStats]:
-    return {
-        Period.MONTH: _get_price_stats_in_period(prices, Period.MONTH),
-        Period.QUARTER: _get_price_stats_in_period(prices, Period.QUARTER),
-        Period.HALF: _get_price_stats_in_period(prices, Period.HALF),
-        Period.YEAR: _get_price_stats_in_period(prices, Period.YEAR),
-    }
+def get_price_stats(prices: DataFrame) -> AnnualPriceStats:
+    return AnnualPriceStats(
+        month=_get_price_stats_in_period(prices, Period.MONTH),
+        quarter=_get_price_stats_in_period(prices, Period.QUARTER),
+        half=_get_price_stats_in_period(prices, Period.HALF),
+        year=_get_price_stats_in_period(prices, Period.YEAR),
+    )
 
 
-def get_volatility(prices: DataFrame) -> dict[Period, float]:
-    return {
-        Period.MONTH: _get_volatility_in_period(prices, Period.MONTH),
-        Period.QUARTER: _get_volatility_in_period(prices, Period.QUARTER),
-        Period.HALF: _get_volatility_in_period(prices, Period.HALF),
-        Period.YEAR: _get_volatility_in_period(prices, Period.YEAR),
-    }
+def get_volatility_stats(prices: DataFrame) -> AnnualStats:
+    return AnnualStats(
+        month=_get_volatility_in_period(prices, Period.MONTH),
+        quarter=_get_volatility_in_period(prices, Period.QUARTER),
+        half=_get_volatility_in_period(prices, Period.HALF),
+        year=_get_volatility_in_period(prices, Period.YEAR),
+    )
 
 
 # -----------------------------------------------------------------------------
