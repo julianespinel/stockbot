@@ -4,8 +4,8 @@ import yfinance as yf
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
-from bot import Bot
-from download import Download
+from bot.bot import Bot
+from download.download import Download
 
 downloader = Download(yf)
 bot = Bot(downloader)
