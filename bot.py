@@ -1,5 +1,7 @@
 import logging
 
+from pandas import DataFrame
+
 import analyze
 import text_formatter as formatter
 from download import Download
@@ -35,7 +37,7 @@ class Bot:
             '/all {symbol} - get price, return, and volatility stats\n'
         )
 
-    def reply_price_stats(self, text):
+    def reply_price_stats(self, text: str) -> str:
         if not self._is_valid_message(text):
             logger.error(f'The given command is not valid: {text}')
             return f'Error: please provide a symbol. For example: `/price amzn`'
@@ -49,12 +51,30 @@ class Bot:
 
         price_stats = analyze.get_price_stats(prices)
         current_price = analyze.get_current_price(prices)
-        readable_price_stats = formatter.human_readable(price_stats)
+        readable_price_stats = formatter.human_readable_prices(price_stats)
         message = (f'The price of {symbol.upper()} is:\n\n'
                    f'Current price:\n'
                    f'{formatter.as_decimal(current_price.value)} ({current_price.date})\n\n'
                    f'Stats:\n\n{readable_price_stats}')
         return message
+
+    def reply_return_stats(self, text: str) -> str:
+        try:
+            symbol = self._get_symbol(text)
+            prices = self._get_prices(symbol)
+
+            current_price = analyze.get_current_price(prices)
+            return_stats = analyze.get_return_stats(prices)
+            readable_return_stats = formatter.human_readable_returns(return_stats)
+            message = (f'The return of {symbol.upper()} is:\n\n'
+                       f'Current price:\n'
+                       f'{formatter.as_decimal(current_price.value)} ({current_price.date})\n\n'
+                       f'Stats:\n\n{readable_return_stats}')
+            return message
+        except Exception as e:
+            error_message = str(e)
+            logger.error(error_message)
+            return error_message
 
     # private methods
 
@@ -64,3 +84,23 @@ class Bot:
             return False
         parts = text.split(SPACE)
         return len(parts) == 2
+
+    def _get_symbol(self, text: str) -> str:
+        if not self._is_valid_message(text):
+            logger.error(f'The given command is not valid: {text}')
+            raise ValueError(
+                f'Error: please provide a symbol after the command, '
+                f'for example: /price amzn'
+            )
+
+        symbol = text.split(SPACE)[1]
+        return symbol
+
+    def _get_prices(self, symbol: str) -> DataFrame:
+        prices = self.downloader.get_stock_historical_data(symbol)
+        if prices.empty:
+            message = f'Error: the symbol {symbol} does not exists'
+            logger.error(message)
+            raise ValueError(message)
+
+        return prices

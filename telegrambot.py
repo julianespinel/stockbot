@@ -35,6 +35,16 @@ def price_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(message)
 
 
+def return_command(update: Update, context: CallbackContext) -> None:
+    """
+    This command expects the following: `/return symbol`
+    For example: `/return amzn`
+    """
+    text = update.message.text
+    message = bot.reply_return_stats(text)
+    update.message.reply_text(message)
+
+
 def echo(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
     update.message.reply_text(update.message.text)
@@ -53,6 +63,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", help_command))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("price", price_command))
+    dispatcher.add_handler(CommandHandler("return", return_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
