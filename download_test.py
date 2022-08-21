@@ -4,7 +4,6 @@ from unittest.mock import MagicMock
 import pandas as pd
 import yfinance as yf
 
-from common_types import Period
 from download import Download
 
 
@@ -15,10 +14,9 @@ class DownloadTests(unittest.TestCase):
         mocked_yf = self._get_mocked_yfinance()
 
         symbol = 'AMZN'
-        period = Period.YEAR
         downloader = Download(mocked_yf)
         # act
-        prices = downloader.get_stock_historical_data(symbol, period)
+        prices = downloader.get_stock_historical_data(symbol)
         # assert
         self.assertEqual(len(prices), 252)
         self.assertEqual(len(prices.change), 252)

@@ -1,0 +1,3 @@
+I compute statistics about prices, returns and volatility from stocks, ETFs and REITs. I get the data from Yahoo Finance.
+
+/help will show the list of supported commands.
