@@ -10,7 +10,7 @@ def human_readable_prices(price_stats: AnnualPriceStats) -> str:
     result += _human_readable_price_stats(Period.HALF, price_stats.half)
     result += '---\n'
     result += _human_readable_price_stats(Period.YEAR, price_stats.year)
-    result += '---\n'
+    result += '---'
     return result
 
 
@@ -19,7 +19,7 @@ def human_readable_annual_stats(annual_stats: AnnualStats) -> str:
         f'{Period.MONTH}: {as_percentage(annual_stats.month)}\n'
         f'{Period.QUARTER}: {as_percentage(annual_stats.quarter)}\n'
         f'{Period.HALF}: {as_percentage(annual_stats.half)}\n'
-        f'{Period.YEAR}: {as_percentage(annual_stats.year)}\n'
+        f'{Period.YEAR}: {as_percentage(annual_stats.year)}'
     )
 
 
@@ -41,7 +41,7 @@ def human_readable_all_annual_stats(price_stats: AnnualPriceStats,
     result += _human_readable_price_stats(Period.YEAR, price_stats.year)
     result += f'return: {as_percentage(return_stats.year)}\n'
     result += f'volatility: {as_percentage(volatility_stats.year)}\n'
-    result += '---\n'
+    result += '---'
     return result
 
 

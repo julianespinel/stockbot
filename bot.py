@@ -35,7 +35,6 @@ class Bot:
             "/help will show the list of supported commands."
         )
 
-
     def reply_help(self):
         return (
             'I support the following commands:\n\n'
@@ -44,7 +43,7 @@ class Bot:
             '/price {symbol} - get price stats\n'
             '/return {symbol} - get return stats\n'
             '/vol {symbol} - get volatility stats\n'
-            '/all {symbol} - get price, return, and volatility stats\n'
+            '/all {symbol} - get price, return, and volatility stats'
         )
 
     def reply_price_stats(self, text: str) -> str:
@@ -145,7 +144,6 @@ class Bot:
         prices = self.downloader.get_stock_historical_data(symbol)
         if prices.empty:
             message = f'Error: the symbol {symbol} does not exists'
-            logger.error(message)
             raise ValueError(message)
 
         return prices
