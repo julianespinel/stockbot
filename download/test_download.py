@@ -29,7 +29,3 @@ class DownloadTests(unittest.TestCase):
         mocked_ticker.history = MagicMock(return_value=expected_df)
         yf.Ticker = MagicMock(return_value=mocked_ticker)
         return yf
-
-
-if __name__ == '__main__':
-    unittest.main()

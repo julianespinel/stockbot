@@ -91,7 +91,3 @@ class AnalyzeTests(unittest.TestCase):
         max_close = ClosePrice('2021-11-18', 184.8030)
         expected_month = PriceStats(min_close, max_close, -0.4464, -0.1405, 0.1354)
         return expected_month
-
-
-if __name__ == '__main__':
-    unittest.main()
