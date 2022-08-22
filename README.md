@@ -22,6 +22,13 @@ The bot supports the following commands:
 
 To execute the unit tests please run the following command: `make test`
 
+### Coverage
+
+To see the code coverage report please execute the following commands:
+1. `make coverage`
+2. `coverage html`
+3. `open htmlcov/index.html`
+
 ## Run
 
 To run the project locally please run the following command: `make run`
