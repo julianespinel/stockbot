@@ -1,6 +1,6 @@
 # StockBot
 
-This repository contains the code that powers the Telegram bot: `@bernankebot`.
+This repository contains the code that powers the Telegram bot: `@bernankebot`.<br>
 It is named in "honor" of the FED chairman Ben Bernanke.
 
 The bot supports the following commands:
@@ -20,11 +20,11 @@ The bot supports the following commands:
 
 ## Test
 
-1. `make test`
+To execute the unit tests please run the following command: `make test`
 
 ## Run
 
-1. `make run`
+To run the project locally please run the following command: `make run`
 
 ## Maintenance
 
@@ -36,12 +36,11 @@ The code is organized in the following way:
 
 We have the following components:
 
-1. download: it is responsible for downloading the data we need to perform
+1. `analyze`: it is responsible for performing the analysis over the data.
+2. `bot`: it is responsible for receive commands and return answers.
+3. `common`: it is responsible to hold common types and data structures.
+4. `download`: it is responsible for downloading the data we need to perform
    analysis.
-2. analyze: it is responsible for performing the analysis over the data.
-3. bot: it is responsible for receiving commands and return answers from
-   platforms such as Telegram.
-4. common: it is responsible to hold common types and data structures.
 
 ### Project structure
 
