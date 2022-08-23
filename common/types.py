@@ -5,7 +5,7 @@ from typing import NamedTuple
 
 import pandas as pd
 
-DECIMAL_PLACES = 4
+from common.constants import DECIMAL_PLACES
 
 
 class Period(str, Enum):
@@ -57,9 +57,6 @@ class ClosePrice:
         else:
             raise ValueError(f'unsupported date type {date_type}')
 
-    def __str__(self):
-        return f'{self.date}, {self.value}'
-
     def __eq__(self, other):
         if not isinstance(other, ClosePrice):
             return False
@@ -85,13 +82,6 @@ class PriceStats:
             round(self.max_negative_change, DECIMAL_PLACES),
             round(self.max_positive_change, DECIMAL_PLACES),
         )
-
-    def __str__(self):
-        attributes = [self.min_price, self.max_price,
-                      self.min_price_max_price_difference,
-                      self.max_negative_change, self.max_positive_change]
-        strings = [str(attribute) for attribute in attributes]
-        return ','.join(strings)
 
     def __eq__(self, other):
         if not isinstance(other, PriceStats):

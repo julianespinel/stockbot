@@ -2,14 +2,15 @@ import math
 
 from pandas import DataFrame
 
-from common.common_types import (
+from common.types import (
     Period,
     AnnualStats,
     ClosePrice,
     AnnualPriceStats,
-    PriceStats,
-    DECIMAL_PLACES
+    PriceStats
 )
+
+from common.constants import DECIMAL_PLACES
 
 
 def get_return_stats(prices: DataFrame) -> AnnualStats:

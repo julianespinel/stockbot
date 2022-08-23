@@ -1,5 +1,7 @@
 # StockBot
 
+![coverage](coverage.svg)
+
 This repository contains the code that powers the Telegram bot: `@bernankebot`.<br>
 It is named in "honor" of the FED chairman Ben Bernanke.
 
@@ -21,6 +23,12 @@ The bot supports the following commands:
 ## Test
 
 To execute the unit tests please run the following command: `make test`
+
+### Coverage
+
+To see the code coverage report please execute the following commands:
+1. `make coverage`
+3. `open htmlcov/index.html`
 
 ## Run
 
