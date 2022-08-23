@@ -1,4 +1,4 @@
-from common.common_types import Period, PriceStats, AnnualStats, AnnualPriceStats
+from common.types import Period, PriceStats, AnnualStats, AnnualPriceStats
 
 def human_readable_prices(price_stats: AnnualPriceStats) -> str:
     result = _human_readable_price_stats(Period.MONTH, price_stats.month)

@@ -3,7 +3,7 @@ import unittest
 import pandas as pd
 
 from analyze import analyze
-from common.common_types import PriceStats, ClosePrice
+from common.types import PriceStats, ClosePrice
 
 
 class AnalyzeTests(unittest.TestCase):
