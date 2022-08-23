@@ -1,6 +1,7 @@
 # StockBot
 
 ![coverage](coverage.svg)
+![build](https://github.com/julianespinel/stockbot/actions/workflows/makefile.yml/badge.svg)
 
 This repository contains the code that powers the Telegram bot: `@bernankebot`.<br>
 It is named in "honor" of the FED chairman Ben Bernanke.
@@ -27,12 +28,16 @@ To execute the unit tests please run the following command: `make test`
 ### Coverage
 
 To see the code coverage report please execute the following commands:
+
 1. `make coverage`
 3. `open htmlcov/index.html`
 
 ## Run
 
-To run the project locally please run the following command: `make run`
+To run the project locally please run the following commands:
+
+1. `export TELEGRAM_BOT_TOKEN='<bot-token-here>'`
+2. `make run`
 
 ## Maintenance
 
