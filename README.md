@@ -1,5 +1,7 @@
 # StockBot
 
+![coverage](coverage.svg)
+
 This repository contains the code that powers the Telegram bot: `@bernankebot`.<br>
 It is named in "honor" of the FED chairman Ben Bernanke.
 
