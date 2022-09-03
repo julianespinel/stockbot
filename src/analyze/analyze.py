@@ -112,13 +112,12 @@ def _get_volatility_in_period(prices: DataFrame, period: Period) -> float:
 
 
 def _get_trading_days(period: Period) -> int:
-    match period:
-        case Period.MONTH:
-            return 22
-        case Period.QUARTER:
-            return 63
-        case Period.HALF:
-            return 126
-        case _:
-            # Return year by default
-            return 252
+    if period == Period.MONTH:
+        return 22
+    elif period == Period.QUARTER:
+        return 63
+    elif period == Period.HALF:
+        return 126
+    else:
+        # Return year by default
+        return 252
