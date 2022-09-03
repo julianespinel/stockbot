@@ -7,7 +7,11 @@ test:
 
 coverage:
 	rm -f .coverage
-	cd src/ && coverage run -m unittest discover
+	rm -f coverage.svg
+	cd src/ \
+		&& coverage run -m unittest discover \
+		&& mv .coverage ../ \
+		&& cd ../
 	coverage report
 	coverage html
 	coverage-badge -o coverage.svg
