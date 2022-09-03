@@ -62,3 +62,18 @@ To visualize the project structure, please execute the following command:
 ```bash
 tree -I 'venv|__pycache__|test_files'
 ```
+
+## Deploy
+
+We use AWS CDK (infrastructure as code) + AWS API Gateway + AWS Lambda to deploy
+the bot. The details are documented [here](infra/README.md).
+
+Please run the following command to deploy the code:
+```bash
+make deploy
+```
+
+If you want to delete the infrastructure created, please run this command:
+```bash
+make destroy
+```
