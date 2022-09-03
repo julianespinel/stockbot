@@ -49,11 +49,10 @@ The code is organized in the following way:
 
 We have the following components:
 
-1. `analyze`: it is responsible for performing the analysis over the data.
+1. `analyst`: it is responsible for performing the analysis over the data.
 2. `bot`: it is responsible for receive commands and return answers.
 3. `common`: it is responsible to hold common types and data structures.
-4. `download`: it is responsible for downloading the data we need to perform
-   analysis.
+4. `download`: it is responsible for downloading the data we need to analyst.
 
 ### Project structure
 
