@@ -180,7 +180,7 @@ class BotTests(unittest.TestCase):
     # region private methods
 
     def _mock_downloader_to_get_historical_data(self):
-        expected_df = pd.read_csv('analyze/test_files/AMZN_from_stockbot.csv')
+        expected_df = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
         self.downloader_mock.get_stock_historical_data = MagicMock(return_value=expected_df)
 
     def _mock_downloader_to_get_empty_historical_data(self):

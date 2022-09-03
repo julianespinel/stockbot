@@ -2,7 +2,7 @@ import logging
 
 from pandas import DataFrame
 
-from analyze import analyze
+from analyst import analyst
 import bot.text_formatter as formatter
 from download.download import Download
 
@@ -51,8 +51,8 @@ class Bot:
             symbol = self._get_symbol(text)
             prices = self._get_prices(symbol)
 
-            current_price = analyze.get_current_price(prices)
-            price_stats = analyze.get_price_stats(prices)
+            current_price = analyst.get_current_price(prices)
+            price_stats = analyst.get_price_stats(prices)
             readable_price_stats = formatter.human_readable_prices(price_stats)
             message = (f'The price of {symbol.upper()} is:\n\n'
                        f'Current price:\n'
@@ -69,8 +69,8 @@ class Bot:
             symbol = self._get_symbol(text)
             prices = self._get_prices(symbol)
 
-            current_price = analyze.get_current_price(prices)
-            return_stats = analyze.get_return_stats(prices)
+            current_price = analyst.get_current_price(prices)
+            return_stats = analyst.get_return_stats(prices)
             readable_return_stats = formatter.human_readable_annual_stats(return_stats)
             message = (f'The return of {symbol.upper()} is:\n\n'
                        f'Current price:\n'
@@ -87,8 +87,8 @@ class Bot:
             symbol = self._get_symbol(text)
             prices = self._get_prices(symbol)
 
-            current_price = analyze.get_current_price(prices)
-            volatility_stats = analyze.get_volatility_stats(prices)
+            current_price = analyst.get_current_price(prices)
+            volatility_stats = analyst.get_volatility_stats(prices)
             readable_volatility_stats = formatter.human_readable_annual_stats(volatility_stats)
             message = (f'The volatility of {symbol.upper()} is:\n\n'
                        f'Current price:\n'
@@ -105,10 +105,10 @@ class Bot:
             symbol = self._get_symbol(text)
             prices = self._get_prices(symbol)
 
-            current_price = analyze.get_current_price(prices)
-            price_stats = analyze.get_price_stats(prices)
-            return_stats = analyze.get_return_stats(prices)
-            volatility_stats = analyze.get_volatility_stats(prices)
+            current_price = analyst.get_current_price(prices)
+            price_stats = analyst.get_price_stats(prices)
+            return_stats = analyst.get_return_stats(prices)
+            volatility_stats = analyst.get_volatility_stats(prices)
             readable_all_stats = formatter.human_readable_all_annual_stats(price_stats, return_stats, volatility_stats)
             message = (f'The stats of {symbol.upper()} are:\n\n'
                        f'Current price:\n'

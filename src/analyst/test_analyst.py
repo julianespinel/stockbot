@@ -2,11 +2,11 @@ import unittest
 
 import pandas as pd
 
-from analyze import analyze
+from analyst import analyst
 from common.types import PriceStats, ClosePrice
 
 
-class AnalyzeTests(unittest.TestCase):
+class AnalystTests(unittest.TestCase):
 
     def test_get_return_stats_return_correct_dictionary(self):
         """
@@ -14,9 +14,9 @@ class AnalyzeTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        expected_df = pd.read_csv('analyze/test_files/AMZN_from_stockbot.csv')
+        expected_df = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
         # act
-        return_stats = analyze.get_return_stats(expected_df).round()
+        return_stats = analyst.get_return_stats(expected_df).round()
         # assert
         self.assertEqual(len(return_stats), 4)
         self.assertEqual(return_stats.month, 0.2390)
@@ -30,9 +30,9 @@ class AnalyzeTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        prices = pd.read_csv('analyze/test_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
         # act
-        price_stats = analyze.get_price_stats(prices)
+        price_stats = analyst.get_price_stats(prices)
         # assert
         self.assertEqual(len(price_stats), 4)
 
@@ -54,9 +54,9 @@ class AnalyzeTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        prices = pd.read_csv('analyze/test_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
         # act
-        volatility = analyze.get_volatility_stats(prices)
+        volatility = analyst.get_volatility_stats(prices)
         # assert
         self.assertEqual(len(volatility), 4)
         self.assertEqual(volatility.month, 0.1536)
