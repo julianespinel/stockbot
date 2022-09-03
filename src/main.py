@@ -1,10 +1,11 @@
-import os
-
 import yfinance as yf
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import (
+    Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+)
 
 from bot.bot import Bot
+from common import env_validator
 from download.download import Download
 
 downloader = Download(yf)
@@ -68,14 +69,13 @@ def unknown_command(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     """Start the bot."""
-    # Create the Updater and pass it your bot's token.
-    token = os.environ['TELEGRAM_BOT_TOKEN']
-    updater = Updater(token)
+    telegram_token = env_validator.get_telegram_token_or_throw()
+    updater = Updater(telegram_token)
 
-    # Get the dispatcher to register handlers
+    # get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
-    # on different commands - answer in Telegram
+    # supported commands
     dispatcher.add_handler(CommandHandler("start", start_command))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("price", price_command))
@@ -86,7 +86,7 @@ def main() -> None:
     # handle unknown commands or text
     dispatcher.add_handler(MessageHandler(Filters.command | Filters.text, unknown_command))
 
-    # Start the Bot
+    # start the bot
     updater.start_polling()
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,

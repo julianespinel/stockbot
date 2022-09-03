@@ -1,15 +1,22 @@
 install:
-	pip install -r requirements.txt
+	pip install -r src/requirements.txt
+	pip install -r infra/requirements.txt
 
 test:
-	python -m unittest discover
+	cd src/ && python -m unittest discover
 
 coverage:
 	rm -f .coverage
-	coverage run -m unittest discover
+	cd src/ && coverage run -m unittest discover
 	coverage report
 	coverage html
 	coverage-badge -o coverage.svg
 
 run:
-	python main.py
+	python src/main.py
+
+deploy:
+	cd infra && cdk deploy
+
+destroy:
+	cd infra && cdk destroy

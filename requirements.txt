@@ -1,6 +1,0 @@
-numpy==1.23.1
-pandas==1.4.3
-yfinance==0.1.74
-python-telegram-bot==13.13
-coverage==6.4.4
-coverage-badge==1.1.0
