@@ -1,10 +1,9 @@
-# StockBot
+# Stockbot
 
 ![coverage](coverage.svg)
 [![Makefile CI](https://github.com/julianespinel/stockbot/actions/workflows/makefile.yml/badge.svg)](https://github.com/julianespinel/stockbot/actions/workflows/makefile.yml)
 
-This repository contains the code that powers the Telegram bot: `@bernankebot`.<br>
-It is named in "honor" of the FED chairman Ben Bernanke.
+This repository contains the code of a Telegram bot that gets information about stocks.
 
 The bot supports the following commands:
 
