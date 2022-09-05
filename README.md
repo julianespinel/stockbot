@@ -67,7 +67,7 @@ tree -I 'venv|__pycache__|test_files'
 We use AWS CDK (infrastructure as code) + AWS API Gateway + AWS Lambda to deploy
 the bot. The details are documented [here](infra/README.md).
 
-Please run the following command to deploy the code:
+Run the following command to create the infrastructure and deploy the code:
 ```bash
 make deploy
 ```
