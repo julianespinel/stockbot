@@ -4,10 +4,27 @@ We use AWS CDK to manage the infrastructure using regular Python code.
 
 ## Prerequisites
 
-You need to have the following software installed in your localhost:
+We need to have the following software installed in our localhost:
 
 1. Docker
 2. CDK CLI
+3. Create an IAM user with the following permission policy to be used by CDK:
+   ```json
+   {
+       "Version": "2012-10-17",
+       "Statement": [
+           {
+               "Effect": "Allow",
+               "Action": [
+                   "sts:AssumeRole"
+               ],
+               "Resource": [
+                   "arn:aws:iam::*:role/cdk-*"
+               ]
+           }
+       ]
+   }
+   ```
 
 ## Deploy
 
@@ -26,12 +43,12 @@ You need to have the following software installed in your localhost:
     GET https://api.telegram.org/bot{my_bot_token}/getWebhookInfo
     ```
 
-4. Send a message to the Bot using your Telegram client (web, mobile, etc).
+4. Send a message to the Bot using the Telegram client (web, mobile, etc).
 
 
 ## Destroy
 
-If you want to delete the infrastructure created, please run this command:
+If we want to delete the infrastructure created, please run this command:
 ```bash
 make destroy
 ```

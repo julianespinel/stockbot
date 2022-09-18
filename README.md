@@ -14,6 +14,10 @@ The bot supports the following commands:
 5. `/vol {symbol}` - get volatility stats
 6. `/all {symbol}` - get price, return, and volatility stats
 
+In addition to the commands, the bot also monitors a given set of symbols
+and sends alerts when a new minimum or maximum price is reached in any of
+the symbols.
+
 ## Install
 
 1. `virtualenv venv`
@@ -33,10 +37,19 @@ To see the code coverage report please execute the following commands:
 
 ## Run
 
-To run the project locally please run the following commands:
+First define the required environment variables:
 
 1. `export TELEGRAM_BOT_TOKEN='<bot-token-here>'`
-2. `make run`
+2. `export CHANNEL_ID='<channel-id-here>'`
+3. `export SYMBOLS='<symbol1>,<symbol2>,...,<symbolN>'`
+
+Please enter symbols that are valid in [Yahoo Finance](https://finance.yahoo.com).
+
+### Run locally
+
+We can run the bot in two modes locally:
+1. Polling mode: `make poll`
+2. Monitor mode: `make monitor`
 
 ## Maintenance
 
@@ -53,12 +66,19 @@ We have the following components:
 3. `common`: it is responsible to hold common types and data structures.
 4. `download`: it is responsible for downloading the data we need to analyst.
 
+In addition to the components we have 4 files in the root of the project:
+
+1. `commands`: contains the commands the bot support.
+2. `monitor`: knows how to monitor a list of symbols.
+3. `poll`: knows how to get new messages via polling (polling Telegram).
+4. `push`: knows how to get new messages via push (webhooks sent by Telegram).
+
 ### Project structure
 
 To visualize the project structure, please execute the following command:
 
 ```bash
-tree -I 'venv|__pycache__|test_files'
+tree -I 'venv|__pycache__|test_files|htmlcov|cdk.out'
 ```
 
 ## Deploy
@@ -71,7 +91,7 @@ Run the following command to create the infrastructure and deploy the code:
 make deploy
 ```
 
-If you want to delete the infrastructure created, please run this command:
+If we want to delete the infrastructure created, please run this command:
 ```bash
 make destroy
 ```

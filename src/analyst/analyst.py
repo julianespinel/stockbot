@@ -2,15 +2,15 @@ import math
 
 from pandas import DataFrame
 
+from common.constants import DECIMAL_PLACES
 from common.types import (
     Period,
     AnnualStats,
     ClosePrice,
     AnnualPriceStats,
-    PriceStats
+    PriceStats,
+    PriceAnomaly,
 )
-
-from common.constants import DECIMAL_PLACES
 
 
 def get_return_stats(prices: DataFrame) -> AnnualStats:
@@ -45,9 +45,22 @@ def get_volatility_stats(prices: DataFrame) -> AnnualStats:
     )
 
 
+def get_price_anomaly(prices: DataFrame) -> PriceAnomaly:
+    current_price = get_current_price(prices)
+    for period in reversed(Period):  # from year to month
+        min_price = _get_min_price(prices, period)
+        max_price = _get_max_price(prices, period)
+        if _is_out_of_bounds(min_price, current_price, max_price):
+            return PriceAnomaly(period, min_price, current_price, max_price)
+
+    return None
+
+
 # -----------------------------------------------------------------------------
 # private methods
 # -----------------------------------------------------------------------------
+
+
 def _get_return_in_period(prices: DataFrame, period: Period) -> float:
     today_price = get_current_price(prices)
     initial_row = prices.iloc[_get_trading_days(period) - 1]
@@ -121,3 +134,10 @@ def _get_trading_days(period: Period) -> int:
     else:
         # Return year by default
         return 252
+
+
+def _is_out_of_bounds(min_price: ClosePrice,
+                      current_price: ClosePrice,
+                      max_price: ClosePrice):
+    return current_price.value <= min_price.value \
+           or current_price.value >= max_price.value
