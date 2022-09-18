@@ -16,8 +16,11 @@ coverage:
 	coverage html
 	coverage-badge -o coverage.svg
 
-run:
-	python src/main.py
+poll:
+	python src/poll.py
+
+monitor:
+	python src/monitor.py
 
 deploy:
 	cd infra && cdk deploy
