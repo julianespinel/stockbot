@@ -78,7 +78,7 @@ In addition to the components we have 4 files in the root of the project:
 To visualize the project structure, please execute the following command:
 
 ```bash
-tree -I 'venv|__pycache__|test_files|htmlcov|**/cdk.out'
+tree -I 'venv|__pycache__|test_files|htmlcov|cdk.out'
 ```
 
 ## Deploy
