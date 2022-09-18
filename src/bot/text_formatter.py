@@ -1,4 +1,7 @@
-from common.types import Period, PriceStats, AnnualStats, AnnualPriceStats
+from common.types import (
+    Period, PriceStats, AnnualStats, AnnualPriceStats, PriceAnomaly
+)
+
 
 def human_readable_prices(price_stats: AnnualPriceStats) -> str:
     result = _human_readable_price_stats(Period.MONTH, price_stats.month)
@@ -41,6 +44,19 @@ def human_readable_all_annual_stats(price_stats: AnnualPriceStats,
     result += f'volatility: {as_percentage(volatility_stats.year)}\n'
     result += '---'
     return result
+
+
+def human_readable_price_anomaly(symbol, price_anomaly: PriceAnomaly):
+    min_or_max = 'Min' if price_anomaly.is_new_min() else 'Max'
+    return (
+        f'Price alert for {symbol}:\n'
+        f'New {price_anomaly.period} {min_or_max} price:'
+        f' {as_decimal(price_anomaly.current_price.value)}'
+        f' ({price_anomaly.current_price.date})\n'
+        f'Old {price_anomaly.period} values:'
+        f' Min: {as_decimal(price_anomaly.min_price.value)} ({price_anomaly.min_price.date}),'
+        f' Max: {as_decimal(price_anomaly.max_price.value)} ({price_anomaly.max_price.date})'
+    )
 
 
 def as_percentage(value: float) -> str:

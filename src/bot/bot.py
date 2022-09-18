@@ -2,8 +2,8 @@ import logging
 
 from pandas import DataFrame
 
-from analyst import analyst
 import bot.text_formatter as formatter
+from analyst import analyst
 from download.download import Download
 
 logging.basicConfig(
@@ -119,6 +119,20 @@ class Bot:
             error_message = str(e)
             logger.error(error_message)
             return error_message
+
+    def monitor_portfolio(self, portfolio: list[str]) -> list[str]:
+        messages = []
+        for symbol in portfolio:
+            prices = self.downloader.get_stock_historical_data(symbol)
+            price_anomaly = analyst.get_price_anomaly(prices)
+            if price_anomaly:
+                message = formatter.human_readable_price_anomaly(symbol, price_anomaly)
+                messages.append(message)
+
+        if not messages:
+            messages.append('No new price alerts for today')
+
+        return messages
 
     # private methods
 
