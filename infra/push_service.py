@@ -13,8 +13,8 @@ class PushService(Construct):
 
         handler = aws_lambda.DockerImageFunction(
             scope=self,
-            id='Stockbot',
-            function_name='Stockbot',
+            id='StockbotPush',
+            function_name='StockbotPush',
             code=aws_lambda.DockerImageCode.from_image_asset(
                 directory='../src',
                 cmd=['push.lambda_handler'],
@@ -28,7 +28,7 @@ class PushService(Construct):
 
         api = apigateway.RestApi(
             self, 'stockbot-api',
-            rest_api_name='Stockbot Service',
+            rest_api_name='Stockbot API',
             description='API gateway for stockbot'
         )
 

@@ -18,8 +18,8 @@ class MonitorService(Construct):
 
         handler = aws_lambda.DockerImageFunction(
             scope=self,
-            id='ScheduledTask',
-            function_name='ScheduledTask',
+            id='StockbotMonitor',
+            function_name='StockbotMonitor',
             code=aws_lambda.DockerImageCode.from_image_asset(
                 directory='../src',
                 cmd=['monitor.lambda_handler'],
@@ -33,7 +33,7 @@ class MonitorService(Construct):
 
         event_rule = aws_events.Rule(
             scope=self,
-            id='ScheduledTaskRule',
+            id='StockbotMonitorRule',
             schedule=aws_events.Schedule.cron(minute='0', hour='18', week_day='MON-FRI'),
         )
 
