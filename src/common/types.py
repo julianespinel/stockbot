@@ -99,3 +99,25 @@ class AnnualPriceStats(NamedTuple):
     quarter: PriceStats
     half: PriceStats
     year: PriceStats
+
+
+class PriceAnomaly(NamedTuple):
+    period: Period
+    min_price: ClosePrice
+    current_price: ClosePrice
+    max_price: ClosePrice
+
+    def round(self):
+        return PriceAnomaly(
+            period=self.period,
+            min_price=self.min_price.round(),
+            current_price=self.current_price.round(),
+            max_price=self.max_price.round(),
+        )
+
+    def is_new_min(self) -> bool:
+        return self.min_price.value == self.current_price.value
+
+    def __str__(self):
+        return f'{self.period}, {self.min_price.value}, ' \
+               f'{self.current_price.value}, {self.max_price.value}'
