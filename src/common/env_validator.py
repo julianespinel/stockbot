@@ -1,8 +1,8 @@
 import os
 
 
-def get_telegram_token_or_throw() -> str:
-    telegram_token = os.environ.get('TELEGRAM_BOT_TOKEN')
-    if not telegram_token:
-        raise ValueError("TELEGRAM_BOT_TOKEN environment variable is not defined")
-    return telegram_token
+def get_or_throw(variable_name: str) -> str:
+    value = os.environ.get(variable_name)
+    if not value:
+        raise ValueError(f'{variable_name} environment variable is not defined')
+    return value
