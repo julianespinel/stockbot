@@ -38,16 +38,16 @@ class AnalystTests(unittest.TestCase):
         self.assertEqual(len(price_stats), 4)
 
         month = price_stats.month.round()
-        self.assertEqual(month, self._get_expected_month())
+        self.assertEqual(month, self._get_expected_month_price_stats())
 
         quarter = price_stats.quarter.round()
-        self.assertEqual(quarter, self._get_expected_quarter())
+        self.assertEqual(quarter, self._get_expected_quarter_price_stats())
 
         half = price_stats.half.round()
-        self.assertEqual(half, self._get_expected_half())
+        self.assertEqual(half, self._get_expected_half_price_stats())
 
         year = price_stats.year.round()
-        self.assertEqual(year, self._get_expected_year())
+        self.assertEqual(year, self._get_expected_year_price_stats())
 
     def test_get_volatility_return_correct_dictionary(self):
         """
@@ -106,28 +106,28 @@ class AnalystTests(unittest.TestCase):
         self.assertIsNone(anomaly)
 
     @staticmethod
-    def _get_expected_month():
+    def _get_expected_month_price_stats():
         min_close = ClosePrice('2022-06-30', 106.21)
         max_close = ClosePrice('2022-07-29', 134.95)
         expected_month = PriceStats(min_close, max_close, 0.2706, -0.0523, 0.1036)
         return expected_month
 
     @staticmethod
-    def _get_expected_quarter():
+    def _get_expected_quarter_price_stats():
         min_close = ClosePrice('2022-06-14', 102.31)
         max_close = ClosePrice('2022-07-29', 134.95)
         expected_month = PriceStats(min_close, max_close, 0.3190, -0.1405, 0.1036)
         return expected_month
 
     @staticmethod
-    def _get_expected_half():
+    def _get_expected_half_price_stats():
         min_close = ClosePrice('2022-06-14', 102.31)
         max_close = ClosePrice('2022-03-29', 169.3150)
         expected_month = PriceStats(min_close, max_close, -0.3957, -0.1405, 0.1354)
         return expected_month
 
     @staticmethod
-    def _get_expected_year():
+    def _get_expected_year_price_stats():
         min_close = ClosePrice('2022-06-14', 102.31)
         max_close = ClosePrice('2021-11-18', 184.8030)
         expected_month = PriceStats(min_close, max_close, -0.4464, -0.1405, 0.1354)
