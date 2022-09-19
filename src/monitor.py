@@ -1,20 +1,14 @@
 """
 Monitor
 """
-import logging
-
 import yfinance as yf
 from telegram import Bot as TelegramBot
 
 from bot.bot import Bot
-from common import env_validator
+from common import env_validator, logs
 from download.download import Download
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
-logger = logging.getLogger(__name__)
+logger = logs.get_logger(__name__)
 
 channel_id = env_validator.get_or_throw('CHANNEL_ID')
 telegram_token = env_validator.get_or_throw('TELEGRAM_BOT_TOKEN')
