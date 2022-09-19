@@ -15,6 +15,7 @@ class MonitorService(Construct):
 
         telegram_token = env_validator.get_or_throw('TELEGRAM_BOT_TOKEN')
         channel_id = env_validator.get_or_throw('CHANNEL_ID')
+        symbols = env_validator.get_or_throw('SYMBOLS')
 
         handler = aws_lambda.DockerImageFunction(
             scope=self,
@@ -28,6 +29,7 @@ class MonitorService(Construct):
             environment={
                 'TELEGRAM_BOT_TOKEN': telegram_token,
                 'CHANNEL_ID': channel_id,
+                'SYMBOLS': symbols,
             },
         )
 
