@@ -1,16 +1,11 @@
-import logging
-
 from pandas import DataFrame
 
 import bot.text_formatter as formatter
 from analyst import analyst
+from common import logs
 from download.download import Download
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
-logger = logging.getLogger(__name__)
+logger = logs.get_logger(__name__)
 
 SPACE = ' '
 

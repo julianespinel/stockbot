@@ -3,19 +3,14 @@ Execute the bot in Push mode.
 Push mode: the bot receives new messages from webhooks sent by Telegram.
 """
 import json
-import logging
 
 from telegram import Update, Bot as TelegramBot
 from telegram.ext import Dispatcher
 
 import commands
-from common import env_validator
+from common import env_validator, logs
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-
-logger = logging.getLogger(__name__)
+logger = logs.get_logger(__name__)
 
 telegram_token = env_validator.get_or_throw('TELEGRAM_BOT_TOKEN')
 
