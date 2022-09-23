@@ -18,6 +18,10 @@ In addition to the commands, the bot also monitors a given set of symbols
 and sends alerts when a new minimum or maximum price is reached in any of
 the symbols.
 
+This is the high level design of Stockbot:
+
+![High level design](docs/stockbot-high-level-design.jpg)
+
 ## Install
 
 1. `virtualenv venv`
@@ -53,6 +57,14 @@ We can run the bot in two modes locally:
 
 ## Maintenance
 
+The project has three directories at the root level:
+
+1. docs: contains files related to documentation.
+2. infra: contains CDK files that define the infrastructure.
+3. src: contains the source code and tests of the bot.
+
+### Source code
+
 The code is organized in the following way:
 
 1. We have components, each component has a single responsibility.
@@ -68,10 +80,10 @@ We have the following components:
 
 In addition to the components we have 4 files in the root of the project:
 
-1. `commands`: contains the commands the bot support.
-2. `monitor`: knows how to monitor a list of symbols.
-3. `poll`: knows how to get new messages via polling (polling Telegram).
-4. `push`: knows how to get new messages via push (webhooks sent by Telegram).
+1. `commands`: contains the commands supported by the bot.
+2. `monitor`: lambda to monitor a list of symbols.
+3. `poll`: code to get new messages via polling (polling Telegram).
+4. `push`: lambda to get new messages via push (webhooks sent by Telegram).
 
 ### Project structure
 
