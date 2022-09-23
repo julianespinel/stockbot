@@ -59,9 +59,9 @@ We can run the bot in two modes locally:
 
 The project has three directories at the root level:
 
-1. docs: contains files related to documentation.
-2. infra: contains CDK files that define the infrastructure.
-3. src: contains the source code and tests of the bot.
+1. `docs`: contains files related to documentation.
+2. `infra`: contains CDK files that define the infrastructure.
+3. `src`: contains the source code and tests of the bot.
 
 ### Source code
 
