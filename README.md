@@ -27,6 +27,7 @@ This is the high level design of Stockbot:
 1. `virtualenv venv`
 2. `source venv/bin/activate`
 3. `make install`
+4. `make build`
 
 ## Test
 
