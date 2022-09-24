@@ -2,7 +2,7 @@
 Execute the bot in Poll mode.
 Poll mode: the bot polls Telegram from new messages.
 """
-from telegram.ext import Updater
+from telegram.ext import Updater, Dispatcher
 
 import commands
 from common import env_validator
@@ -14,8 +14,7 @@ def poll() -> None:
     updater = Updater(telegram_token)
 
     # get the dispatcher to register handlers
-    dispatcher = updater.dispatcher
-
+    dispatcher = updater.dispatcher  # type: ignore
     commands.add_supported_commands(dispatcher)
 
     # start the bot

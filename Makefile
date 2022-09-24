@@ -2,6 +2,10 @@ install:
 	pip install -r src/requirements.txt
 	pip install -r infra/requirements.txt
 
+build:
+	mypy src
+	mypy infra
+
 test:
 	cd src/ && python -m unittest discover
 

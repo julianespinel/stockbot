@@ -32,7 +32,7 @@ class AnnualStats(NamedTuple):
 
 class ClosePrice:
 
-    def __init__(self, a_date: str, close_value: float):
+    def __init__(self, a_date: str, close_value: float) -> None:
         str_date = self._get_date_as_string(a_date)
         self.date = date.fromisoformat(str_date)
         self.value = close_value
@@ -57,7 +57,7 @@ class ClosePrice:
         else:
             raise ValueError(f'unsupported date type {date_type}')
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         if not isinstance(other, ClosePrice):
             return False
         return self.date == other.date and self.value == other.value
@@ -66,8 +66,8 @@ class ClosePrice:
 class PriceStats:
 
     def __init__(self, min_price: ClosePrice, max_price: ClosePrice,
-                 close_price_difference: float,
-                 max_negative_change: float, max_positive_change: float):
+                 close_price_difference: float, max_negative_change: float,
+                 max_positive_change: float) -> None:
         self.min_price = min_price
         self.max_price = max_price
         self.min_price_max_price_difference = close_price_difference
@@ -83,7 +83,7 @@ class PriceStats:
             round(self.max_positive_change, DECIMAL_PLACES),
         )
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         if not isinstance(other, PriceStats):
             return False
 
@@ -118,6 +118,6 @@ class PriceAnomaly(NamedTuple):
     def is_new_min(self) -> bool:
         return self.min_price.value == self.current_price.value
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self.period}, {self.min_price.value}, ' \
                f'{self.current_price.value}, {self.max_price.value}'
