@@ -20,5 +20,8 @@ jobs:
     - name: Install dependencies
       run: make install
 
+    - name: Check type hints
+      run: make build
+
     - name: Run tests
       run: make test
