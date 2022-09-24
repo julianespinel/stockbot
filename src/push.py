@@ -15,7 +15,7 @@ logger = logs.get_logger(__name__)
 telegram_token = env_validator.get_or_throw('TELEGRAM_BOT_TOKEN')
 
 telegram = TelegramBot(token=telegram_token)
-dispatcher = Dispatcher(telegram, None, use_context=True)
+dispatcher = Dispatcher(telegram, None, use_context=True)  # type: ignore
 
 
 def lambda_handler(event, context):

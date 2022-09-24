@@ -1,4 +1,5 @@
 import math
+from typing import Optional
 
 from pandas import DataFrame
 
@@ -45,7 +46,7 @@ def get_volatility_stats(prices: DataFrame) -> AnnualStats:
     )
 
 
-def get_price_anomaly(prices: DataFrame) -> PriceAnomaly:
+def get_price_anomaly(prices: DataFrame) -> Optional[PriceAnomaly]:
     current_price = get_current_price(prices)
     for period in reversed(Period):  # from year to month
         min_price = _get_min_price(prices, period)

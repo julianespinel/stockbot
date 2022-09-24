@@ -23,14 +23,14 @@ class Bot:
     def __init__(self, downloader: Download):
         self.downloader = downloader
 
-    def reply_start(self):
+    def reply_start(self) -> str:
         return (
             "I compute statistics about prices, returns and volatility from "
             "stocks, ETFs and REITs. I get the data from Yahoo Finance.\n\n"
             "/help will show the list of supported commands."
         )
 
-    def reply_help(self):
+    def reply_help(self) -> str:
         return (
             'I support the following commands:\n\n'
             '/start - show the description of what I can do\n'

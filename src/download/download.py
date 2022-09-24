@@ -6,7 +6,7 @@ from common.types import Period
 
 class Download:
 
-    def __init__(self, financelib):
+    def __init__(self, financelib) -> None:
         self.financelib = financelib
 
     def get_stock_historical_data(self, symbol: str) -> DataFrame:
