@@ -8,15 +8,19 @@ This repository contains the code of a Telegram bot that gets information about 
 The bot supports the following commands:
 
 1. `/start` - show the description of what the bot can do
-2. `/help` - show the list of commands the bot support
+2. `/help` - show the list of commands the bot supports
 3. `/price {symbol}` - get price stats
 4. `/return {symbol}` - get return stats
 5. `/vol {symbol}` - get volatility stats
 6. `/all {symbol}` - get price, return, and volatility stats
 
+For a detailed description of the response of each command, please see [here](docs/commands.md).
+
 In addition to the commands, the bot also monitors a given set of symbols
 and sends alerts when a new minimum or maximum price is reached in any of
 the symbols.
+
+For a detailed description of what the monitor mode does, please see [here](docs/monitor.md).
 
 This is the high level design of Stockbot:
 
