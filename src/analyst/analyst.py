@@ -64,7 +64,8 @@ def get_price_anomaly(prices: DataFrame) -> Optional[PriceAnomaly]:
 
 def _get_return_in_period(prices: DataFrame, period: Period) -> float:
     today_price = get_current_price(prices)
-    initial_row = prices.iloc[_get_trading_days(period) - 1]
+    first_row_in_period = min(len(prices), _get_trading_days(period))
+    initial_row = prices.iloc[first_row_in_period - 1]
     initial_price = ClosePrice(initial_row.Date, initial_row.Close)
     return _get_price_difference(today_price, initial_price)
 

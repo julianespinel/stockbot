@@ -4,4 +4,4 @@ yfinance==0.1.74
 python-telegram-bot==13.13
 coverage==6.4.4
 coverage-badge==1.1.0
-mypy==0.971
+mypy==0.990
