@@ -28,22 +28,30 @@ We need to have the following software installed in our localhost:
 
 ## Deploy
 
+1. Set the following environment variables:
+    ```bash
+    export AWS_ACCESS_KEY_ID='<access-key-id>'
+    export AWS_SECRET_ACCESS_KEY='<secret-access-key>'
+    export CDK_DEPLOY_REGION='<aws-region>'
+    export CDK_DEPLOY_ACCOUNT='<aws-account-id>'
+    ```
+
 1. Run the following command to create the infrastructure and deploy the code:
     ```bash
     make deploy
     ```
 
-2. Set Telegram bot webhook:
+1. Set Telegram bot webhook:
     ```bash
     GET https://api.telegram.org/bot{my_bot_token}/setWebhook?url={url_to_send_updates_to}
     ```
 
-3. Verify webhook was set:
+1. Verify webhook was set:
     ```bash
     GET https://api.telegram.org/bot{my_bot_token}/getWebhookInfo
     ```
 
-4. Send a message to the Bot using the Telegram client (web, mobile, etc).
+1. Send a message to the Bot using the Telegram client (web, mobile, etc).
 
 
 ## Destroy
