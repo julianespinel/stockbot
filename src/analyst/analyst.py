@@ -94,7 +94,8 @@ def _get_price_stats_in_period(prices: DataFrame, period: Period) -> PriceStats:
                       max_negative_change, max_positive_change)
 
 
-def _get_price_difference(a_price: ClosePrice, other_price: ClosePrice) -> float:
+def _get_price_difference(a_price: ClosePrice,
+                          other_price: ClosePrice) -> float:
     if a_price.date <= other_price.date:
         initial, final = a_price, other_price
     else:

@@ -193,6 +193,7 @@ class BotTests(unittest.TestCase):
 
     def _mock_downloader_to_get_empty_historical_data(self):
         expected_df = pd.DataFrame([])
-        self.downloader_mock.get_stock_historical_data = MagicMock(return_value=expected_df)
+        self.downloader_mock.get_stock_historical_data = MagicMock(
+            return_value=expected_df)
 
     # endregion

@@ -27,7 +27,7 @@ def human_readable_annual_stats(annual_stats: AnnualStats) -> str:
 
 def human_readable_all_annual_stats(price_stats: AnnualPriceStats,
                                     return_stats: AnnualStats,
-                                    volatility_stats: AnnualStats):
+                                    volatility_stats: AnnualStats) -> str:
     result = _human_readable_price_stats(Period.MONTH, price_stats.month)
     result += f'return: {as_percentage(return_stats.month)}\n'
     result += f'volatility: {as_percentage(volatility_stats.month)}\n'
@@ -47,7 +47,7 @@ def human_readable_all_annual_stats(price_stats: AnnualPriceStats,
     return result
 
 
-def human_readable_price_anomaly(symbol, price_anomaly: PriceAnomaly):
+def human_readable_price_anomaly(symbol, price_anomaly: PriceAnomaly) -> str:
     min_or_max = 'Min' if price_anomaly.is_new_min() else 'Max'
     return (
         f'Price alert for {symbol}:\n'
