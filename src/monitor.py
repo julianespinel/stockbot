@@ -44,8 +44,7 @@ def _monitor(portfolio: list[str]) -> None:
 
 def _report(portfolio: list[str]) -> None:
     message = bot.report_portfolio(portfolio)
-    logger.info(f'_report: message length: {len(message)}')
-    logger.info(f'_report: message: {message}')
+    logger.info(f'_report: {message}')
     telegram.send_message(channel_id, message)
 
 
