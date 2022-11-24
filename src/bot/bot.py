@@ -129,6 +129,14 @@ class Bot:
 
         return messages
 
+    def report_portfolio(self, portfolio: list[str]) -> str:
+        report = ["Portfolio report\n"]
+        for symbol in portfolio:
+            prices = self.downloader.get_stock_historical_data(symbol)
+            symbol_report = analyst.get_symbol_report(symbol, prices)
+            report.append(formatter.human_readable_report(symbol_report))
+        return ''.join(report)
+
     # private methods
 
     @staticmethod

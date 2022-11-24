@@ -25,6 +25,7 @@ bot = Bot(downloader)
 def lambda_handler(event, context):
     try:
         _monitor(portfolio)
+        _report(portfolio)
         return {"statusCode": 200}
     except Exception as e:
         logger.error(e)
@@ -39,6 +40,13 @@ def _monitor(portfolio: list[str]) -> None:
     for message in messages:
         logger.info(message)
         telegram.send_message(channel_id, message)
+
+
+def _report(portfolio: list[str]) -> None:
+    message = bot.report_portfolio(portfolio)
+    logger.info(f'_report: message length: {len(message)}')
+    logger.info(f'_report: message: {message}')
+    telegram.send_message(channel_id, message)
 
 
 if __name__ == '__main__':

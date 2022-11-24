@@ -9,6 +9,9 @@ from src.common.constants import DECIMAL_PLACES
 
 
 class Period(str, Enum):
+    WEEK = '1wk'
+    TWO_WEEKS = '2wk'
+    THREE_WEEKS = '3wk'
     MONTH = '1mo'
     QUARTER = '3mo'
     HALF = '6mo'
@@ -121,3 +124,22 @@ class PriceAnomaly(NamedTuple):
     def __str__(self) -> str:
         return f'{self.period}, {self.min_price.value}, ' \
                f'{self.current_price.value}, {self.max_price.value}'
+
+
+class ReportInPeriod(NamedTuple):
+    period: Period
+    min_price: ClosePrice
+    max_price: ClosePrice
+    change_in_period: float
+
+
+class SymbolReport(NamedTuple):
+    symbol: str
+    current_price: float
+    week: ReportInPeriod
+    two_weeks: ReportInPeriod
+    three_weeks: ReportInPeriod
+    month: ReportInPeriod
+    quarter: ReportInPeriod
+    half: ReportInPeriod
+    year: ReportInPeriod
