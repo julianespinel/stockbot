@@ -17,7 +17,7 @@ class PushService(Construct):
             function_name='StockbotPush',
             code=aws_lambda.DockerImageCode.from_image_asset(
                 directory='../src',
-                cmd=['push.lambda_handler'],
+                cmd=['src.push.lambda_handler'],
             ),
             timeout=Duration.seconds(30),  # Default is only 3 seconds
             environment={

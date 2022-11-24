@@ -7,24 +7,21 @@ build:
 	mypy infra
 
 test:
-	cd src/ && python -m unittest discover
+	python -m unittest discover
 
 coverage:
 	rm -f .coverage
 	rm -f coverage.svg
-	cd src/ \
-		&& coverage run -m unittest discover \
-		&& mv .coverage ../ \
-		&& cd ../
+	coverage run -m unittest discover
 	coverage report
 	coverage html
 	coverage-badge -o coverage.svg
 
 poll:
-	python src/poll.py
+	python -m src.poll
 
 monitor:
-	python src/monitor.py
+	python -m src.monitor
 
 deploy:
 	cd infra && cdk deploy

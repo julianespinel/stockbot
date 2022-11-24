@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 import pandas as pd
 
-from bot.bot import Bot
+from src.bot.bot import Bot
 
 
 class BotTests(unittest.TestCase):
@@ -15,7 +15,8 @@ class BotTests(unittest.TestCase):
 
     def test_reply_start_success_get_expected_message(self):
         # arrange
-        expected_message = Path('bot/test_files/start.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/start.txt').read_text().rstrip()
         # act
         message = self.bot.reply_start()
         # assert
@@ -23,7 +24,8 @@ class BotTests(unittest.TestCase):
 
     def test_reply_help_success_get_expected_message(self):
         # arrange
-        expected_message = Path('bot/test_files/help.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/help.txt').read_text().rstrip()
         # act
         message = self.bot.reply_help()
         # assert
@@ -58,7 +60,8 @@ class BotTests(unittest.TestCase):
         # arrange
         text = '/price amzn'
         self._mock_downloader_to_get_historical_data()
-        expected_message = Path('bot/test_files/price.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/price.txt').read_text().rstrip()
         # act
         message = self.bot.reply_price_stats(text)
         # assert
@@ -95,7 +98,8 @@ class BotTests(unittest.TestCase):
         # arrange
         text = '/return amzn'
         self._mock_downloader_to_get_historical_data()
-        expected_message = Path('bot/test_files/return.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/return.txt').read_text().rstrip()
         # act
         message = self.bot.reply_return_stats(text)
         # assert
@@ -132,7 +136,8 @@ class BotTests(unittest.TestCase):
         # arrange
         text = '/vol amzn'
         self._mock_downloader_to_get_historical_data()
-        expected_message = Path('bot/test_files/volatility.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/volatility.txt').read_text().rstrip()
         # act
         message = self.bot.reply_volatility_stats(text)
         # assert
@@ -169,7 +174,8 @@ class BotTests(unittest.TestCase):
         # arrange
         text = '/all amzn'
         self._mock_downloader_to_get_historical_data()
-        expected_message = Path('bot/test_files/all.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/all.txt').read_text().rstrip()
         # act
         message = self.bot.reply_all_stats(text)
         # assert
@@ -177,14 +183,71 @@ class BotTests(unittest.TestCase):
 
     # endregion
 
+    # region monitor portfolio
+
+    def test_monitor_portfolio_success_no_new_price_alerts(self):
+        portfolio = []
+        self._mock_downloader_to_get_historical_data()
+        messages = self.bot.monitor_portfolio(portfolio)
+        # assert
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0], 'No new price alerts for today')
+
+    def test_monitor_portfolio_success_three_new_price_alerts(self):
+        portfolio = ['AMZN']
+        self._mock_downloader_to_get_historical_data()
+        messages = self.bot.monitor_portfolio(portfolio)
+        # assert
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(
+            messages[0],
+            ('Price alert for AMZN:\n'
+             'New 3mo Max price: 134.95 (2022-07-29)\n'
+             'Old 3mo values: Min: 102.31 (2022-06-14), Max: 134.95 (2022-07-29)')
+        )
+
+    # endregion
+
+    # region report portfolio
+
+    def test_report_portfolio_success_empty_report(self):
+        portfolio = []
+        self._mock_downloader_to_get_historical_data()
+        report = self.bot.report_portfolio(portfolio)
+        # assert
+        self.assertEqual(report, 'Portfolio report\n')
+
+    def test_report_portfolio_success_non_empty_report(self):
+        portfolio = ['AMZN']
+        self._mock_downloader_to_get_historical_data()
+        report = self.bot.report_portfolio(portfolio)
+        # assert
+        self.assertEqual(
+            report,
+            ('Portfolio report\n\n'
+            'AMZN price: 134.95\n'
+            '1wk: 10.24%\n'
+            '2wk: 18.85%\n'
+            '3wk: 16.80%\n'
+            '1mo: 23.90%\n'
+            '3mo: 8.58%\n'
+            '6mo: -6.27%\n'
+            '12mo: -18.89%\n')
+        )
+
+    # endregion
+
     # region private methods
 
     def _mock_downloader_to_get_historical_data(self):
-        expected_df = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
-        self.downloader_mock.get_stock_historical_data = MagicMock(return_value=expected_df)
+        expected_df = pd.read_csv(
+            'src/analyst/test_files/AMZN_from_stockbot.csv')
+        self.downloader_mock.get_stock_historical_data = MagicMock(
+            return_value=expected_df)
 
     def _mock_downloader_to_get_empty_historical_data(self):
         expected_df = pd.DataFrame([])
-        self.downloader_mock.get_stock_historical_data = MagicMock(return_value=expected_df)
+        self.downloader_mock.get_stock_historical_data = MagicMock(
+            return_value=expected_df)
 
     # endregion

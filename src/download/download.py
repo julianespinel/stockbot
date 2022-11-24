@@ -1,7 +1,7 @@
 import numpy as np
 from pandas import DataFrame
 
-from common.types import Period
+from src.common.types import Period
 
 
 class Download:

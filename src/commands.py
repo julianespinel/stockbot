@@ -4,8 +4,8 @@ from telegram.ext import (
     CallbackContext, CommandHandler, MessageHandler, Filters, Dispatcher
 )
 
-from bot.bot import Bot
-from download.download import Download
+from src.bot.bot import Bot
+from src.download.download import Download
 
 downloader = Download(yf)
 bot = Bot(downloader)

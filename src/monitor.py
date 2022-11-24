@@ -3,10 +3,11 @@ Monitor
 """
 import yfinance as yf
 from telegram import Bot as TelegramBot
+import telegram as tl
 
-from bot.bot import Bot
-from common import env_validator, logs
-from download.download import Download
+from src.bot.bot import Bot
+from src.common import env_validator, logs
+from src.download.download import Download
 
 logger = logs.get_logger(__name__)
 
@@ -24,6 +25,7 @@ bot = Bot(downloader)
 def lambda_handler(event, context):
     try:
         _monitor(portfolio)
+        _report(portfolio)
         return {"statusCode": 200}
     except Exception as e:
         logger.error(e)
@@ -38,6 +40,12 @@ def _monitor(portfolio: list[str]) -> None:
     for message in messages:
         logger.info(message)
         telegram.send_message(channel_id, message)
+
+
+def _report(portfolio: list[str]) -> None:
+    message = bot.report_portfolio(portfolio)
+    logger.info(f'_report: {message}')
+    telegram.send_message(channel_id, message)
 
 
 if __name__ == '__main__':

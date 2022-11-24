@@ -1,9 +1,9 @@
 from pandas import DataFrame
 
-import bot.text_formatter as formatter
-from analyst import analyst
-from common import logs
-from download.download import Download
+import src.bot.text_formatter as formatter
+from src.analyst import analyst
+from src.common import logs
+from src.download.download import Download
 
 logger = logs.get_logger(__name__)
 
@@ -66,7 +66,8 @@ class Bot:
 
             current_price = analyst.get_current_price(prices)
             return_stats = analyst.get_return_stats(prices)
-            readable_return_stats = formatter.human_readable_annual_stats(return_stats)
+            readable_return_stats = formatter.human_readable_annual_stats(
+                return_stats)
             message = (f'The return of {symbol.upper()} is:\n\n'
                        f'Current price:\n'
                        f'{formatter.as_decimal(current_price.value)} ({current_price.date})\n\n'
@@ -84,7 +85,8 @@ class Bot:
 
             current_price = analyst.get_current_price(prices)
             volatility_stats = analyst.get_volatility_stats(prices)
-            readable_volatility_stats = formatter.human_readable_annual_stats(volatility_stats)
+            readable_volatility_stats = formatter.human_readable_annual_stats(
+                volatility_stats)
             message = (f'The volatility of {symbol.upper()} is:\n\n'
                        f'Current price:\n'
                        f'{formatter.as_decimal(current_price.value)} ({current_price.date})\n\n'
@@ -104,7 +106,8 @@ class Bot:
             price_stats = analyst.get_price_stats(prices)
             return_stats = analyst.get_return_stats(prices)
             volatility_stats = analyst.get_volatility_stats(prices)
-            readable_all_stats = formatter.human_readable_all_annual_stats(price_stats, return_stats, volatility_stats)
+            readable_all_stats = formatter.human_readable_all_annual_stats(
+                price_stats, return_stats, volatility_stats)
             message = (f'The stats of {symbol.upper()} are:\n\n'
                        f'Current price:\n'
                        f'{formatter.as_decimal(current_price.value)} ({current_price.date})\n\n'
@@ -121,13 +124,22 @@ class Bot:
             prices = self.downloader.get_stock_historical_data(symbol)
             price_anomaly = analyst.get_price_anomaly(prices)
             if price_anomaly:
-                message = formatter.human_readable_price_anomaly(symbol, price_anomaly)
+                message = formatter.human_readable_price_anomaly(symbol,
+                                                                 price_anomaly)
                 messages.append(message)
 
         if not messages:
             messages.append('No new price alerts for today')
 
         return messages
+
+    def report_portfolio(self, portfolio: list[str]) -> str:
+        report = ["Portfolio report\n"]
+        for symbol in portfolio:
+            prices = self.downloader.get_stock_historical_data(symbol)
+            symbol_report = analyst.get_symbol_report(symbol, prices)
+            report.append(formatter.human_readable_report(symbol_report))
+        return ''.join(report)
 
     # private methods
 

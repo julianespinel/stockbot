@@ -3,14 +3,16 @@ from typing import Optional
 
 from pandas import DataFrame
 
-from common.constants import DECIMAL_PLACES
-from common.types import (
+from src.common.constants import DECIMAL_PLACES
+from src.common.types import (
     Period,
     AnnualStats,
     ClosePrice,
     AnnualPriceStats,
     PriceStats,
     PriceAnomaly,
+    SymbolReport,
+    ReportInPeriod,
 )
 
 
@@ -49,12 +51,28 @@ def get_volatility_stats(prices: DataFrame) -> AnnualStats:
 def get_price_anomaly(prices: DataFrame) -> Optional[PriceAnomaly]:
     current_price = get_current_price(prices)
     for period in reversed(Period):  # from year to month
+        if period in [Period.THREE_WEEKS, Period.TWO_WEEKS, Period.WEEK]:
+            continue
         min_price = _get_min_price(prices, period)
         max_price = _get_max_price(prices, period)
         if _is_out_of_bounds(min_price, current_price, max_price):
             return PriceAnomaly(period, min_price, current_price, max_price)
 
     return None
+
+
+def get_symbol_report(symbol: str, prices: DataFrame) -> SymbolReport:
+    return SymbolReport(
+        symbol=symbol,
+        current_price=get_current_price(prices).value,
+        week=_get_report_in_period(prices, Period.WEEK),
+        two_weeks=_get_report_in_period(prices, Period.TWO_WEEKS),
+        three_weeks=_get_report_in_period(prices, Period.THREE_WEEKS),
+        month=_get_report_in_period(prices, Period.MONTH),
+        quarter=_get_report_in_period(prices, Period.QUARTER),
+        half=_get_report_in_period(prices, Period.HALF),
+        year=_get_report_in_period(prices, Period.YEAR),
+    )
 
 
 # -----------------------------------------------------------------------------
@@ -90,7 +108,8 @@ def _get_price_stats_in_period(prices: DataFrame, period: Period) -> PriceStats:
                       max_negative_change, max_positive_change)
 
 
-def _get_price_difference(a_price: ClosePrice, other_price: ClosePrice) -> float:
+def _get_price_difference(a_price: ClosePrice,
+                          other_price: ClosePrice) -> float:
     if a_price.date <= other_price.date:
         initial, final = a_price, other_price
     else:
@@ -127,7 +146,13 @@ def _get_volatility_in_period(prices: DataFrame, period: Period) -> float:
 
 
 def _get_trading_days(period: Period) -> int:
-    if period == Period.MONTH:
+    if period == Period.WEEK:
+        return 6
+    elif period == Period.TWO_WEEKS:
+        return 11
+    elif period == Period.THREE_WEEKS:
+        return 16
+    elif period == Period.MONTH:
         return 22
     elif period == Period.QUARTER:
         return 63
@@ -143,3 +168,12 @@ def _is_out_of_bounds(min_price: ClosePrice,
                       max_price: ClosePrice):
     return current_price.value <= min_price.value \
            or current_price.value >= max_price.value
+
+
+def _get_report_in_period(prices: DataFrame, period: Period) -> ReportInPeriod:
+    return ReportInPeriod(
+        period=period,
+        min_price=_get_min_price(prices, period),
+        max_price=_get_max_price(prices, period),
+        change_in_period=_get_return_in_period(prices, period)
+    )

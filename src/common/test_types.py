@@ -3,7 +3,7 @@ import unittest
 
 import pandas as pd
 
-from common.types import ClosePrice
+from src.common.types import ClosePrice
 
 
 class TypesTests(unittest.TestCase):

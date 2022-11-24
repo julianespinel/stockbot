@@ -18,7 +18,7 @@ it will notify only about the 12-month limit. The 6-month, 3-month and 1-month
 minimum price has also been crossed, but we don't need to send notifications for
 them.
 
-This task executes automatically from Monday to Friday at 1800 GMT-4.
+This task executes automatically from Monday to Friday at 1800 GMT-5.
 (After the US stock market has closed).
 
 ### Notification

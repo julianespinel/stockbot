@@ -7,8 +7,8 @@ import json
 from telegram import Update, Bot as TelegramBot
 from telegram.ext import Dispatcher
 
-import commands
-from common import env_validator, logs
+import src.commands as commands
+from src.common import env_validator, logs
 
 logger = logs.get_logger(__name__)
 
