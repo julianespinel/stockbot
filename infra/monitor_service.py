@@ -33,14 +33,14 @@ class MonitorService(Construct):
             },
         )
 
-        # Execute rule from Monday to Friday at 2200 UTC (1800 GMT-4)
-        six_pm_utc = '22'
+        # Execute rule from Monday to Friday at 2300 UTC (1800 GMT-5)
+        utc_hour = '23'
         event_rule = aws_events.Rule(
             scope=self,
             id='StockbotMonitorRule',
             schedule=aws_events.Schedule.cron(
                 minute='0',
-                hour=six_pm_utc,
+                hour=utc_hour,
                 week_day='MON-FRI'
             ),
         )
