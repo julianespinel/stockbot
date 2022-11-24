@@ -1,9 +1,9 @@
 from pandas import DataFrame
 
-import bot.text_formatter as formatter
-from analyst import analyst
-from common import logs
-from download.download import Download
+import src.bot.text_formatter as formatter
+from src.analyst import analyst
+from src.common import logs
+from src.download.download import Download
 
 logger = logs.get_logger(__name__)
 

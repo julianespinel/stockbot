@@ -5,7 +5,7 @@ from typing import NamedTuple
 
 import pandas as pd
 
-from common.constants import DECIMAL_PLACES
+from src.common.constants import DECIMAL_PLACES
 
 
 class Period(str, Enum):

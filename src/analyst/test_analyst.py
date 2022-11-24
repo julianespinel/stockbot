@@ -3,8 +3,8 @@ from unittest.mock import patch
 
 import pandas as pd
 
-from analyst import analyst
-from common.types import PriceStats, ClosePrice, PriceAnomaly, Period
+from src.analyst import analyst
+from src.common.types import PriceStats, ClosePrice, PriceAnomaly, Period
 
 
 class AnalystTests(unittest.TestCase):
@@ -15,7 +15,8 @@ class AnalystTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        expected_df = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
+        expected_df = pd.read_csv(
+            'src/analyst/test_files/AMZN_from_stockbot.csv')
         # act
         return_stats = analyst.get_return_stats(expected_df).round()
         # assert
@@ -31,7 +32,7 @@ class AnalystTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        prices = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('src/analyst/test_files/AMZN_from_stockbot.csv')
         # act
         price_stats = analyst.get_price_stats(prices)
         # assert
@@ -55,7 +56,7 @@ class AnalystTests(unittest.TestCase):
         the file: csv_files/stock-monitor-example-AMZN.ods
         """
         # arrange
-        prices = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('src/analyst/test_files/AMZN_from_stockbot.csv')
         # act
         volatility = analyst.get_volatility_stats(prices)
         # assert
@@ -65,13 +66,13 @@ class AnalystTests(unittest.TestCase):
         self.assertEqual(volatility.half, 0.3995)
         self.assertEqual(volatility.year, 0.4350)
 
-    @patch('analyst.analyst.get_current_price')
+    @patch('src.analyst.analyst.get_current_price')
     def test_get_price_anomaly_return_year_anomaly(self, get_current_price):
         # arrange
         current_price = ClosePrice('2022-07-29', 1.0)
         # expected_price is less than the min price of the last year
         get_current_price.return_value = current_price
-        prices = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('src/analyst/test_files/AMZN_from_stockbot.csv')
         # act
         anomaly = analyst.get_price_anomaly(prices)
         # assert
@@ -79,13 +80,13 @@ class AnalystTests(unittest.TestCase):
         self.assertEqual(
             anomaly.round(), self._get_expected_year_price_alert(current_price))
 
-    @patch('analyst.analyst.get_current_price')
+    @patch('src.analyst.analyst.get_current_price')
     def test_get_price_anomaly_return_month_anomaly(self, get_current_price):
         # arrange
         current_price = ClosePrice('2022-07-29', 104.0)
         # expected_price is less than the min price of the last month
         get_current_price.return_value = current_price
-        prices = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('src/analyst/test_files/AMZN_from_stockbot.csv')
         # act
         anomaly = analyst.get_price_anomaly(prices)
         # assert
@@ -93,13 +94,13 @@ class AnalystTests(unittest.TestCase):
         self.assertEqual(
             anomaly.round(), self._get_expected_month_price_alert(current_price))
 
-    @patch('analyst.analyst.get_current_price')
+    @patch('src.analyst.analyst.get_current_price')
     def test_get_price_anomaly_return_none(self, get_current_price):
         # arrange
         expected_price = ClosePrice('2022-07-29', 120.0)
         # expected_price is within min and max of the last year
         get_current_price.return_value = expected_price
-        prices = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
+        prices = pd.read_csv('src/analyst/test_files/AMZN_from_stockbot.csv')
         # act
         anomaly = analyst.get_price_anomaly(prices)
         # assert

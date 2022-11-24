@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 import pandas as pd
 import yfinance as yf
 
-from download.download import Download
+from src.download.download import Download
 
 
 class DownloadTests(unittest.TestCase):
@@ -24,7 +24,7 @@ class DownloadTests(unittest.TestCase):
 
     @staticmethod
     def _get_mocked_yfinance():
-        expected_df = pd.read_csv('download/test_files/AMZN_from_yfinance.csv')
+        expected_df = pd.read_csv('src/download/test_files/AMZN_from_yfinance.csv')
         mocked_ticker = MagicMock()
         mocked_ticker.history = MagicMock(return_value=expected_df)
         yf.Ticker = MagicMock(return_value=mocked_ticker)

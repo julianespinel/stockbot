@@ -3,10 +3,11 @@ Monitor
 """
 import yfinance as yf
 from telegram import Bot as TelegramBot
+import telegram as tl
 
-from bot.bot import Bot
-from common import env_validator, logs
-from download.download import Download
+from src.bot.bot import Bot
+from src.common import env_validator, logs
+from src.download.download import Download
 
 logger = logs.get_logger(__name__)
 

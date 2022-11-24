@@ -4,8 +4,8 @@ Poll mode: the bot polls Telegram from new messages.
 """
 from telegram.ext import Updater, Dispatcher
 
-import commands
-from common import env_validator
+import src.commands as commands
+from src.common import env_validator
 
 
 def poll() -> None:

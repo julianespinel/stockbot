@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 import pandas as pd
 
-from bot.bot import Bot
+from src.bot.bot import Bot
 
 
 class BotTests(unittest.TestCase):
@@ -15,7 +15,8 @@ class BotTests(unittest.TestCase):
 
     def test_reply_start_success_get_expected_message(self):
         # arrange
-        expected_message = Path('bot/test_files/start.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/start.txt').read_text().rstrip()
         # act
         message = self.bot.reply_start()
         # assert
@@ -23,7 +24,8 @@ class BotTests(unittest.TestCase):
 
     def test_reply_help_success_get_expected_message(self):
         # arrange
-        expected_message = Path('bot/test_files/help.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/help.txt').read_text().rstrip()
         # act
         message = self.bot.reply_help()
         # assert
@@ -58,7 +60,8 @@ class BotTests(unittest.TestCase):
         # arrange
         text = '/price amzn'
         self._mock_downloader_to_get_historical_data()
-        expected_message = Path('bot/test_files/price.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/price.txt').read_text().rstrip()
         # act
         message = self.bot.reply_price_stats(text)
         # assert
@@ -95,7 +98,8 @@ class BotTests(unittest.TestCase):
         # arrange
         text = '/return amzn'
         self._mock_downloader_to_get_historical_data()
-        expected_message = Path('bot/test_files/return.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/return.txt').read_text().rstrip()
         # act
         message = self.bot.reply_return_stats(text)
         # assert
@@ -132,7 +136,8 @@ class BotTests(unittest.TestCase):
         # arrange
         text = '/vol amzn'
         self._mock_downloader_to_get_historical_data()
-        expected_message = Path('bot/test_files/volatility.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/volatility.txt').read_text().rstrip()
         # act
         message = self.bot.reply_volatility_stats(text)
         # assert
@@ -169,7 +174,8 @@ class BotTests(unittest.TestCase):
         # arrange
         text = '/all amzn'
         self._mock_downloader_to_get_historical_data()
-        expected_message = Path('bot/test_files/all.txt').read_text().rstrip()
+        expected_message = Path(
+            'src/bot/test_files/all.txt').read_text().rstrip()
         # act
         message = self.bot.reply_all_stats(text)
         # assert
@@ -180,8 +186,10 @@ class BotTests(unittest.TestCase):
     # region private methods
 
     def _mock_downloader_to_get_historical_data(self):
-        expected_df = pd.read_csv('analyst/test_files/AMZN_from_stockbot.csv')
-        self.downloader_mock.get_stock_historical_data = MagicMock(return_value=expected_df)
+        expected_df = pd.read_csv(
+            'src/analyst/test_files/AMZN_from_stockbot.csv')
+        self.downloader_mock.get_stock_historical_data = MagicMock(
+            return_value=expected_df)
 
     def _mock_downloader_to_get_empty_historical_data(self):
         expected_df = pd.DataFrame([])

@@ -23,7 +23,7 @@ class MonitorService(Construct):
             function_name='StockbotMonitor',
             code=aws_lambda.DockerImageCode.from_image_asset(
                 directory='../src',
-                cmd=['monitor.lambda_handler'],
+                cmd=['src.monitor.lambda_handler'],
             ),
             timeout=Duration.minutes(10),
             environment={
