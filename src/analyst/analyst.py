@@ -61,6 +61,20 @@ def get_price_anomaly(prices: DataFrame) -> Optional[PriceAnomaly]:
     return None
 
 
+def get_symbol_report(symbol: str, prices: DataFrame) -> SymbolReport:
+    return SymbolReport(
+        symbol=symbol,
+        current_price=get_current_price(prices).value,
+        week=_get_report_in_period(prices, Period.WEEK),
+        two_weeks=_get_report_in_period(prices, Period.TWO_WEEKS),
+        three_weeks=_get_report_in_period(prices, Period.THREE_WEEKS),
+        month=_get_report_in_period(prices, Period.MONTH),
+        quarter=_get_report_in_period(prices, Period.QUARTER),
+        half=_get_report_in_period(prices, Period.HALF),
+        year=_get_report_in_period(prices, Period.YEAR),
+    )
+
+
 # -----------------------------------------------------------------------------
 # private methods
 # -----------------------------------------------------------------------------
@@ -116,20 +130,6 @@ def _get_max_price(prices: DataFrame, period: Period) -> ClosePrice:
     row_id = prices.Close[:trading_days].idxmax()
     row = prices.iloc[row_id]
     return ClosePrice(row.Date, row.Close)
-
-
-def get_symbol_report(symbol: str, prices: DataFrame) -> SymbolReport:
-    return SymbolReport(
-        symbol=symbol,
-        current_price=get_current_price(prices).value,
-        week=_get_report_in_period(prices, Period.WEEK),
-        two_weeks=_get_report_in_period(prices, Period.TWO_WEEKS),
-        three_weeks=_get_report_in_period(prices, Period.THREE_WEEKS),
-        month=_get_report_in_period(prices, Period.MONTH),
-        quarter=_get_report_in_period(prices, Period.QUARTER),
-        half=_get_report_in_period(prices, Period.HALF),
-        year=_get_report_in_period(prices, Period.YEAR),
-    )
 
 
 def _get_volatility_in_period(prices: DataFrame, period: Period) -> float:
