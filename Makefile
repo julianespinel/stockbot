@@ -12,7 +12,7 @@ test:
 coverage:
 	rm -f .coverage
 	rm -f coverage.svg
-	coverage run -m unittest discover
+	coverage run --source=. -m unittest discover
 	coverage report
 	coverage html
 	coverage-badge -o coverage.svg
