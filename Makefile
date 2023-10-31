@@ -23,6 +23,9 @@ poll:
 monitor:
 	python -m src.monitor
 
+bootstrap:
+	cd infra && cdk bootstrap
+
 deploy:
 	cd infra && cdk deploy
 
