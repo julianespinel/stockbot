@@ -11,18 +11,100 @@ We need to have the following software installed in our localhost:
 3. Create an IAM user with the following permission policy to be used by CDK:
    ```json
    {
-       "Version": "2012-10-17",
-       "Statement": [
-           {
-               "Effect": "Allow",
-               "Action": [
-                   "sts:AssumeRole"
-               ],
-               "Resource": [
-                   "arn:aws:iam::*:role/cdk-*"
-               ]
-           }
-       ]
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Sid": "sts",
+         "Effect": "Allow",
+         "Action": [
+           "sts:AssumeRole"
+         ],
+         "Resource": [
+           "*"
+         ]
+       },
+       {
+         "Action": [
+           "cloudformation:CreateChangeSet",
+           "cloudformation:DeleteStack",
+           "cloudformation:DescribeChangeSet",
+           "cloudformation:DescribeStackEvents",
+           "cloudformation:DescribeStacks",
+           "cloudformation:ExecuteChangeSet",
+           "cloudformation:GetTemplate",
+           "cloudformation:DeleteChangeSet"
+         ],
+         "Resource": [
+           "arn:aws:cloudformation:*:*:stack/*/*"
+         ],
+         "Effect": "Allow",
+         "Sid": "CloudFormationPermissions"
+       },
+       {
+         "Action": [
+           "iam:CreateRole",
+           "iam:DeleteRole",
+           "iam:GetRole",
+           "iam:AttachRolePolicy",
+           "iam:DetachRolePolicy",
+           "iam:DeleteRolePolicy",
+           "iam:PutRolePolicy",
+           "iam:PassRole"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:iam::*:policy/*",
+           "arn:aws:iam::*:role/cdk-*"
+         ]
+       },
+       {
+         "Action": [
+           "s3:CreateBucket",
+           "s3:DeleteBucket",
+           "s3:PutBucketPolicy",
+           "s3:DeleteBucketPolicy",
+           "s3:PutBucketPublicAccessBlock",
+           "s3:PutBucketVersioning",
+           "s3:PutEncryptionConfiguration",
+           "s3:PutLifecycleConfiguration",
+           "s3:GetBucketLocation",
+           "s3:ListBucket",
+           "s3:GetObject",
+           "s3:DeleteObject",
+           "s3:PutObject"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:s3:::cdk-*"
+         ]
+       },
+       {
+         "Action": [
+           "ssm:DeleteParameter",
+           "ssm:GetParameter",
+           "ssm:GetParameters",
+           "ssm:PutParameter"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:ssm:*:*:parameter/cdk-bootstrap/*"
+         ]
+       },
+       {
+         "Action": [
+           "ecr:CreateRepository",
+           "ecr:DeleteRepository",
+           "ecr:DescribeRepositories",
+           "ecr:SetRepositoryPolicy",
+           "ecr:PutLifecyclePolicy",
+           "ecr:DescribeImages"
+         ],
+         "Effect": "Allow",
+         "Resource": [
+           "arn:aws:ecr:*:*:repository/cdk-*"
+         ]
+       }
+     ]
    }
    ```
 

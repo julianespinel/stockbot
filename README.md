@@ -36,8 +36,8 @@ This is the high level design of Stockbot:
 
 ## Install
 
-1. `virtualenv venv`
-2. `source venv/bin/activate`
+1. `python -m venv .venv`
+2. `source .venv/bin/activate`
 3. `make install`
 4. `make build`
 

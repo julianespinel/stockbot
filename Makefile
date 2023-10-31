@@ -12,7 +12,7 @@ test:
 coverage:
 	rm -f .coverage
 	rm -f coverage.svg
-	coverage run -m unittest discover
+	coverage run --source=. -m unittest discover
 	coverage report
 	coverage html
 	coverage-badge -o coverage.svg
@@ -22,6 +22,9 @@ poll:
 
 monitor:
 	python -m src.monitor
+
+bootstrap:
+	cd infra && cdk bootstrap
 
 deploy:
 	cd infra && cdk deploy
